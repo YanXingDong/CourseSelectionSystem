@@ -1,8 +1,8 @@
 package userService;
 
-import database.Course;
+import entity.Course;
 import database.CourseDBUnit;
-import database.Student;
+import entity.Student;
 import database.StudentDBUnit;
 
 import java.util.HashMap;
@@ -49,7 +49,7 @@ public class CourseService {
         }
         return course1;
     }
-    public void tuiXuan(Student student,Course course){//ÃÃ‹Ã‘Â¡Â²Ã™Ã—Ã·
+    public void tuiXuan(Student student,Course course){//ÍËÑ¡²Ù×÷
         this.student = studentDBUnit.getUser(student.getAccount());
         this.student.decreaseCourse(course);
         courseDBUnit.getCourse(course.getName()).setSelectedNum(courseDBUnit.getCourse(course.getName()).getSelectedNum()-1);
@@ -60,7 +60,7 @@ public class CourseService {
             e.printStackTrace();
         }
     }
-    public void xuanKe(Student student,Course course){//Ã‘Â¡Â¿ÃÂ²Ã™Ã—Ã·
+    public void xuanKe(Student student,Course course){//Ñ¡¿Î²Ù×÷
         this.student = studentDBUnit.getUser(student.getAccount());
         this.student.addCourse(course);
         HashMap users= studentDBUnit.getUsers();
@@ -124,5 +124,4 @@ public class CourseService {
             e.printStackTrace();
         }
     }
-
 }

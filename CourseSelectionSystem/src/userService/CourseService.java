@@ -49,7 +49,7 @@ public class CourseService {
         }
         return course1;
     }
-    public void tuiXuan(Student student,Course course){//ÍËÑ¡²Ù×÷
+    public void tuiXuan(Student student,Course course){//ÃÃ‹Ã‘Â¡Â²Ã™Ã—Ã·
         this.student = studentDBUnit.getUser(student.getAccount());
         this.student.decreaseCourse(course);
         courseDBUnit.getCourse(course.getName()).setSelectedNum(courseDBUnit.getCourse(course.getName()).getSelectedNum()-1);
@@ -60,9 +60,19 @@ public class CourseService {
             e.printStackTrace();
         }
     }
-    public void xuanKe(Student student,Course course){//Ñ¡¿Î²Ù×÷
+    public void xuanKe(Student student,Course course){//Ã‘Â¡Â¿ÃÂ²Ã™Ã—Ã·
         this.student = studentDBUnit.getUser(student.getAccount());
         this.student.addCourse(course);
+        HashMap users= studentDBUnit.getUsers();
+        Set keySet = users.keySet();
+        Iterator it = keySet.iterator();
+        while(it.hasNext()){
+            Object key = it.next();
+            this.student = (Student) users.get(key);
+            if(this.student.getCourses().get(course.getName())!=null&&student.getName().equals(this.student.getName())==false){
+                this.student.getCourses().get(course.getName()).setSelectedNum(this.student.getCourses().get(course.getName()).getSelectedNum()+1);
+            }
+        }
         courseDBUnit.getCourse(course.getName()).setSelectedNum(courseDBUnit.getCourse(course.getName()).getSelectedNum()+1);
         try {
             studentDBUnit.setUsers();
